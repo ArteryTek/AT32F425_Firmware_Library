@@ -1,0 +1,12 @@
+/**
+  **************************************************************************
+  * @file     readme.txt
+  * @version  v2.0.0
+  * @date     2021-12-31
+  * @brief    readme
+  **************************************************************************
+  */
+
+  this demo is based on the at-start board, in this demo, modify the variables
+  by its bitband address and then read from bitband address. if the variables is
+  not the expected, led4 blink every 1s, else the led2 toggle.
