@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_acc.c
-  * @version  v2.0.0
-  * @date     2021-12-31
+  * @version  v2.0.1
+  * @date     2022-02-11
   * @brief    contains all the functions for the acc firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_usart.h
-  * @version  v2.0.0
-  * @date     2021-12-31
+  * @version  v2.0.1
+  * @date     2022-02-11
   * @brief    at32f425 usart header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -110,8 +110,9 @@ typedef enum
   */
 typedef enum
 {
-  USART_DATA_8BITS                       = 0x00, /*!< usart data size is 8 bits */
-  USART_DATA_9BITS                       = 0x01  /*!< usart data size is 9 bits */
+  USART_DATA_7BITS                       = 0x00, /*!< usart data size is 7 bits */
+  USART_DATA_8BITS                       = 0x01, /*!< usart data size is 8 bits */
+  USART_DATA_9BITS                       = 0x02  /*!< usart data size is 9 bits */
 } usart_data_bit_num_type;
 
 /**
@@ -171,6 +172,24 @@ typedef enum
   USART_HARDWARE_FLOW_CTS                = 0x02, /*!< usart hardware flow only cts */
   USART_HARDWARE_FLOW_RTS_CTS            = 0x03  /*!< usart hardware flow both rts and cts */
 } usart_hardware_flow_control_type;
+
+/**
+  * @brief  usart identification bit num type
+  */
+typedef enum
+{
+  USART_ID_FIXED_4_BIT                   = 0x00, /*!< usart id bit num fixed 4 bits */
+  USART_ID_RELATED_DATA_BIT              = 0x01  /*!< usart id bit num related data bits */
+} usart_identification_bit_num_type;
+
+/**
+  * @brief  usart de polarity type
+  */
+typedef enum
+{
+  USART_DE_POLARITY_HIGH                 = 0x00, /*!< usart de polarity high */
+  USART_DE_POLARITY_LOW                  = 0x01  /*!< usart de polarity low */
+} usart_de_polarity_type;
 
 /**
   * @brief type define usart register all
@@ -245,9 +264,14 @@ typedef struct
       __IO uint32_t psel                 : 1; /* [9] */
       __IO uint32_t pen                  : 1; /* [10] */
       __IO uint32_t wum                  : 1; /* [11] */
-      __IO uint32_t dbn                  : 1; /* [12] */
+      __IO uint32_t dbn_l                : 1; /* [12] */
       __IO uint32_t uen                  : 1; /* [13] */
-      __IO uint32_t reserved1            : 18;/* [31:14] */
+      __IO uint32_t reserved1            : 2; /* [15:14] */
+      __IO uint32_t tcdt                 : 5; /* [20:16] */
+      __IO uint32_t tsdt                 : 5; /* [25:21] */
+      __IO uint32_t reserved2            : 2; /* [27:26] */      
+      __IO uint32_t dbn_h                : 1; /* [28] */
+      __IO uint32_t reserved3            : 3; /* [31:29] */
     } ctrl1_bit;
   };
 
@@ -259,19 +283,20 @@ typedef struct
     __IO uint32_t ctrl2;
     struct
     {
-      __IO uint32_t id                   : 4; /* [3:0] */
-      __IO uint32_t reserved1            : 1; /* [4] */
+      __IO uint32_t id_l                 : 4; /* [3:0] */
+      __IO uint32_t idbn                 : 1; /* [4] */
       __IO uint32_t bfbn                 : 1; /* [5] */
       __IO uint32_t bfien                : 1; /* [6] */
-      __IO uint32_t reserved2            : 1; /* [7] */
+      __IO uint32_t reserved1            : 1; /* [7] */
       __IO uint32_t lbcp                 : 1; /* [8] */
       __IO uint32_t clkpha               : 1; /* [9] */
       __IO uint32_t clkpol               : 1; /* [10] */
       __IO uint32_t clken                : 1; /* [11] */
       __IO uint32_t stopbn               : 2; /* [13:12] */
       __IO uint32_t linen                : 1; /* [14] */
-      __IO uint32_t trpswap              : 1; /* [15] */
-      __IO uint32_t reserved3            : 16;/* [31:16] */
+      __IO uint32_t trpswap              : 1; /* [15] */  
+      __IO uint32_t reserved2            : 12;/* [27:16] */
+      __IO uint32_t id_h                 : 4; /* [31:28] */
     } ctrl2_bit;
   };
   
@@ -294,7 +319,10 @@ typedef struct
       __IO uint32_t rtsen                : 1; /* [8] */
       __IO uint32_t ctsen                : 1; /* [9] */
       __IO uint32_t ctscfien             : 1; /* [10] */
-      __IO uint32_t reserved1            : 21;/* [31:11] */
+      __IO uint32_t reserved1            : 3; /* [13:11] */
+      __IO uint32_t rs485en              : 1; /* [14] */
+      __IO uint32_t dep                  : 1; /* [15] */
+      __IO uint32_t reserved2            : 16;/* [31:16] */  
     } ctrl3_bit;
   };
 
@@ -353,9 +381,14 @@ void usart_single_line_halfduplex_select(usart_type* usart_x, confirm_state new_
 void usart_irda_mode_enable(usart_type* usart_x, confirm_state new_state);
 void usart_irda_low_power_enable(usart_type* usart_x, confirm_state new_state);
 void usart_hardware_flow_control_set(usart_type* usart_x,usart_hardware_flow_control_type flow_state);
-void usart_transmit_receive_pin_swap(usart_type* usart_x, confirm_state new_state);
 flag_status usart_flag_get(usart_type* usart_x, uint32_t flag);
 void usart_flag_clear(usart_type* usart_x, uint32_t flag);
+void usart_rs485_delay_time_config(usart_type* usart_x, uint8_t start_delay_time, uint8_t complete_delay_time);
+void usart_transmit_receive_pin_swap(usart_type* usart_x, confirm_state new_state);
+void usart_id_bit_num_set(usart_type* usart_x, usart_identification_bit_num_type id_bit_num);
+void usart_de_polarity_set(usart_type* usart_x, usart_de_polarity_type de_polarity);
+void usart_rs485_mode_enable(usart_type* usart_x, confirm_state new_state);
+
 
 /**
   * @}

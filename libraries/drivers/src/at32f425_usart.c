@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_usart.c
-  * @version  v2.0.0
-  * @date     2021-12-31
+  * @version  v2.0.1
+  * @date     2022-02-11
   * @brief    contains all the functions for the usart firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -61,6 +61,16 @@ void usart_reset(usart_type* usart_x)
     crm_periph_reset(CRM_USART2_PERIPH_RESET, TRUE);
     crm_periph_reset(CRM_USART2_PERIPH_RESET, FALSE);
   }
+  else if(usart_x == USART3)
+  {
+    crm_periph_reset(CRM_USART3_PERIPH_RESET, TRUE);
+    crm_periph_reset(CRM_USART3_PERIPH_RESET, FALSE);
+  }
+  else if(usart_x == USART4)
+  {
+    crm_periph_reset(CRM_USART4_PERIPH_RESET, TRUE);
+    crm_periph_reset(CRM_USART4_PERIPH_RESET, FALSE);
+  }  
 }
 
 /**
@@ -71,6 +81,7 @@ void usart_reset(usart_type* usart_x)
   * @param  baud_rate: configure the usart communication baud rate.
   * @param  data_bit: data bits transmitted or received in a frame    
   *         this parameter can be one of the following values:
+  *         - USART_DATA_7BITS
   *         - USART_DATA_8BITS
   *         - USART_DATA_9BITS.
   * @param  stop_bit: stop bits transmitted
@@ -104,7 +115,21 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
     temp_val = (temp_val / 10) + 1;
   }
   usart_x->baudr_bit.div = temp_val;
-  usart_x->ctrl1_bit.dbn = data_bit;
+  if(data_bit == USART_DATA_7BITS)
+  {
+    usart_x->ctrl1_bit.dbn_h = 1; 
+    usart_x->ctrl1_bit.dbn_l = 0; 
+  }
+  else if(data_bit == USART_DATA_8BITS)
+  {
+    usart_x->ctrl1_bit.dbn_h = 0; 
+    usart_x->ctrl1_bit.dbn_l = 0; 
+  }
+  else
+  {
+    usart_x->ctrl1_bit.dbn_h = 0; 
+    usart_x->ctrl1_bit.dbn_l = 1; 
+  }
   usart_x->ctrl2_bit.stopbn = stop_bit; 
 }
 
@@ -278,12 +303,21 @@ void usart_dma_receiver_enable(usart_type* usart_x, confirm_state new_state)
   * @param  usart_x: select the usart or the uart peripheral.
   *         this parameter can be one of the following values:
   *         USART1, USART2, USART3 or USART4.
-  * @param  usart_id: the matching id(0x0~0xF).
+  * @param  usart_id: the matching id(0x0~0xFF).
   * @retval none
   */
 void usart_wakeup_id_set(usart_type* usart_x, uint8_t usart_id)
 {
-  usart_x->ctrl2_bit.id = usart_id;
+  if(usart_x->ctrl2_bit.idbn == USART_ID_FIXED_4_BIT)
+  {
+    usart_x->ctrl2_bit.id_l = (usart_id & 0x0F);
+    usart_x->ctrl2_bit.id_h = 0;
+  }
+  else
+  {
+    usart_x->ctrl2_bit.id_l = (usart_id & 0x0F);
+    usart_x->ctrl2_bit.id_h = ((usart_id & 0xF0) >> 4);
+  }
 }
 
 /**
@@ -517,20 +551,6 @@ void usart_hardware_flow_control_set(usart_type* usart_x,usart_hardware_flow_con
 }
 
 /**
-  * @brief  swap the usart's transmit receive pin.
-  * @param  usart_x: select the usart or the uart peripheral.
-  *         this parameter can be one of the following values:
-  *         USART1, USART2, USART3 or USART4.
-  * @param  new_state: new state of the usart peripheral.
-  *         this parameter can be: TRUE or FALSE.
-  * @retval none
-  */
-void usart_transmit_receive_pin_swap(usart_type* usart_x, confirm_state new_state)
-{
-  usart_x->ctrl2_bit.trpswap = new_state;
-}
-
-/**
   * @brief  check whether the specified usart flag is set or not.
   * @param  usart_x: select the usart or the uart peripheral.
   *         this parameter can be one of the following values:
@@ -585,6 +605,77 @@ flag_status usart_flag_get(usart_type* usart_x, uint32_t flag)
 void usart_flag_clear(usart_type* usart_x, uint32_t flag)
 {
   usart_x->sts = ~flag;
+}
+
+/**
+  * @brief  configure the usart's rs485 transmit delay time.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3
+  * @param  start_delay_time: transmit start delay time.
+  * @param  complete_delay_time: transmit complete delay time.
+  * @retval none
+  */
+void usart_rs485_delay_time_config(usart_type* usart_x, uint8_t start_delay_time, uint8_t complete_delay_time)
+{
+  usart_x->ctrl1_bit.tsdt = start_delay_time;
+  usart_x->ctrl1_bit.tcdt = complete_delay_time; 
+}
+
+/**
+  * @brief  swap the usart's transmit receive pin.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3 or USART4.
+  * @param  new_state: new state of the usart peripheral.
+  *         this parameter can be: TRUE or FALSE.
+  * @retval none
+  */
+void usart_transmit_receive_pin_swap(usart_type* usart_x, confirm_state new_state)
+{
+  usart_x->ctrl2_bit.trpswap = new_state;
+}
+
+/**
+  * @brief  set the usart's identification bit num.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3, UART4, UART5, USART6, UART7,or UART8.
+  * @param  id_bit_num: the usart wakeup identification bit num.
+  *         this parameter can be: USART_ID_FIXED_4_BIT or USART_ID_RELATED_DATA_BIT.
+  * @retval none
+  */
+void usart_id_bit_num_set(usart_type* usart_x, usart_identification_bit_num_type id_bit_num)
+{
+  usart_x->ctrl2_bit.idbn = (uint8_t)id_bit_num;
+}
+
+/**
+  * @brief  set the usart's de polarity.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3
+  * @param  de_polarity: the usart de polarity selection.
+  *         this parameter can be: USART_DE_POLARITY_HIGH or USART_DE_POLARITY_LOW.
+  * @retval none
+  */
+void usart_de_polarity_set(usart_type* usart_x, usart_de_polarity_type de_polarity)
+{
+  usart_x->ctrl3_bit.dep = (uint8_t)de_polarity;
+}
+
+/**
+  * @brief  enable or disable the usart's rs485 mode.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3
+  * @param  new_state: new state of the irda mode.
+  *         this parameter can be: TRUE or FALSE.
+  * @retval none
+  */
+void usart_rs485_mode_enable(usart_type* usart_x, confirm_state new_state)
+{
+  usart_x->ctrl3_bit.rs485en = new_state; 
 }
 
 /**

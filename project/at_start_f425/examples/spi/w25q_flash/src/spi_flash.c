@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     spi_flash.c
-  * @version  v2.0.0
-  * @date     2021-12-31
+  * @version  v2.0.1
+  * @date     2022-02-11
   * @brief    spi_flash source code
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -62,13 +62,13 @@ void spiflash_init(void)
   gpio_initstructure.gpio_pins           = GPIO_PINS_5;
   gpio_init(GPIOA, &gpio_initstructure);
   
-  /* mosi */
+  /* miso */
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;  
   gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;  
   gpio_initstructure.gpio_pins           = GPIO_PINS_6;
   gpio_init(GPIOA, &gpio_initstructure);
   
-  /* miso */
+  /* mosi */
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;  
   gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;  
   gpio_initstructure.gpio_pins = GPIO_PINS_7;
