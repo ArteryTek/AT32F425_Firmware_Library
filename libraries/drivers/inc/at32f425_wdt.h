@@ -1,17 +1,17 @@
 /**
   **************************************************************************
   * @file     at32f425_wdt.h
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    at32f425 wdt header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -45,7 +45,7 @@ extern "C" {
   */
 
 
-/** @defgroup WDT_flags_definition 
+/** @defgroup WDT_flags_definition
   * @brief wdt flag
   * @{
   */
@@ -53,7 +53,7 @@ extern "C" {
 #define WDT_DIVF_UPDATE_FLAG             ((uint16_t)0x0001) /*!< wdt division value update complete flag */
 #define WDT_RLDF_UPDATE_FLAG             ((uint16_t)0x0002) /*!< wdt reload value update complete flag */
 #define WDT_WINF_UPDATE_FLAG             ((uint16_t)0x0004) /*!< wdt window value update complete flag */
- 
+
 /**
   * @}
   */
@@ -61,7 +61,7 @@ extern "C" {
 /** @defgroup WDT_exported_types
   * @{
   */
-  
+
 /**
   * @brief wdt division value type
   */
@@ -159,7 +159,7 @@ typedef struct
     } win_bit;
   };
 } wdt_type;
-  
+
 /**
   * @}
   */

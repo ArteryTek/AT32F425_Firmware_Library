@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_dma.h
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    at32f425 dma header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -162,7 +162,7 @@ typedef enum
   DMA_FLEXIBLE_TMR7_OVERFLOW             = 0x27, /*!< tmr7_overflow flexible request id */
   DMA_FLEXIBLE_TMR15_TRIG                = 0x2A, /*!< tmr15_trig flexible request id */
   DMA_FLEXIBLE_TMR15_HALL                = 0x2A, /*!< tmr15_hall flexible request id */
-  DMA_FLEXIBLE_TMR15_OVERFLOW            = 0x2B, /*!< tmr15_up flexible request id */
+  DMA_FLEXIBLE_TMR15_OVERFLOW            = 0x2B, /*!< tmr15_overflow flexible request id */
   DMA_FLEXIBLE_TMR15_CH1                 = 0x28, /*!< tmr15_ch1 flexible request id */
   DMA_FLEXIBLE_TMR15_CH2                 = 0x29, /*!< tmr15_ch2 flexible request id */
   DMA_FLEXIBLE_TMR16_OVERFLOW            = 0x2E, /*!< tmr16_overflow flexible request id */

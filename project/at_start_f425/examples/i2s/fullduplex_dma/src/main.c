@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -98,7 +98,7 @@ static void i2s_config(void)
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
   dma_reset(DMA1_CHANNEL2);
   dma_reset(DMA1_CHANNEL3);
-  
+
   dma_flexible_config(DMA1, FLEX_CHANNEL2, DMA_FLEXIBLE_SPI1_TX);
   dma_flexible_config(DMA1, FLEX_CHANNEL3, DMA_FLEXIBLE_SPI2_RX);
 
@@ -124,9 +124,9 @@ static void i2s_config(void)
   crm_periph_clock_enable(CRM_SPI1_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_SPI2_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_SCFG_PERIPH_CLOCK, TRUE);
-  
+
   scfg_i2s_full_duplex_config(SCFG_FULL_DUPLEX_I2S1_I2S2);
-  
+
   i2s_default_para_init(&i2s_init_struct);
   i2s_init_struct.audio_protocol = I2S_AUDIO_PROTOCOL_PHILLIPS;
   i2s_init_struct.data_channel_format = I2S_DATA_16BIT_CHANNEL_32BIT;
@@ -158,7 +158,7 @@ static void gpio_config(void)
   crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);
 
   gpio_default_para_init(&gpio_initstructure);
-  
+
   /* master ws pin */
   gpio_initstructure.gpio_out_type       = GPIO_OUTPUT_PUSH_PULL;
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;

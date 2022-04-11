@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_int.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main interrupt service routines.
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -30,7 +30,7 @@
 /** @addtogroup AT32F425_periph_examples
   * @{
   */
-  
+
 /** @addtogroup 425_CAN_filter
   * @{
   */
@@ -134,9 +134,9 @@ void SysTick_Handler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 

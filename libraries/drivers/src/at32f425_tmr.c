@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_tmr.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    contains all the functions for the tmr firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -1100,7 +1100,7 @@ void tmr_primary_mode_select(tmr_type *tmr_x, tmr_primary_select_type primary_mo
   * @brief  select tmr subordinate mode
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
-  *         TMR1, TMR2, TMR3, TMR15, 
+  *         TMR1, TMR2, TMR3, TMR15,
   * @param  sub_mode
   *         this parameter can be one of the following values:
   *         - TMR_SUB_MODE_DIABLE

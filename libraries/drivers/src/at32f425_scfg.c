@@ -1,17 +1,17 @@
 /**
   **************************************************************************
   * @file     at32f425_scfg.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    contains all the functions for the system config firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -41,18 +41,18 @@
   * @{
   */
 
-/** 
-  * @brief  scfg reset 
+/**
+  * @brief  scfg reset
   * @param  none
   * @retval none
   */
 void scfg_reset(void)
-{ 
+{
   crm_periph_reset(CRM_SCFG_PERIPH_RESET, TRUE);
   crm_periph_reset(CRM_SCFG_PERIPH_RESET, FALSE);
 }
 
-/** 
+/**
   * @brief  scfg infrared config
   * @param  source
   *         this parameter can be one of the following values:
@@ -71,8 +71,8 @@ void scfg_infrared_config(scfg_ir_source_type source, scfg_ir_polarity_type pola
   SCFG->cfg1_bit.ir_pol = polarity;
 }
 
-/** 
-  * @brief  scfg memory address mapping get 
+/**
+  * @brief  scfg memory address mapping get
   * @param  none
   * @retval return parameter can be one of the following values:
   *         - SCFG_MEM_MAP_MAIN_MEMORY
@@ -84,8 +84,8 @@ uint8_t scfg_mem_map_get(void)
   return (uint8_t)SCFG->cfg1_bit.mem_map_sel ;
 }
 
-/** 
-  * @brief  scfg pa11/12 pin remap 
+/**
+  * @brief  scfg pa11/12 pin remap
   * @param  pin_remap
   *         this parameter can be one of the following values:
   *         - SCFG_PA11PA12_NO_REMAP
@@ -165,8 +165,8 @@ void scfg_exint_line_config(scfg_port_source_type port_source, scfg_pins_source_
   * @brief  enable or disable gpio pins ultra driven.
   * @param  value:
   *         this parameter can be one of the following values:
-  *         - SCFG_ULTRA_DRIVEN_PB8 
-  *         - SCFG_ULTRA_DRIVEN_PB9 
+  *         - SCFG_ULTRA_DRIVEN_PB8
+  *         - SCFG_ULTRA_DRIVEN_PB9
   *         - SCFG_ULTRA_DRIVEN_PB13
   *         - SCFG_ULTRA_DRIVEN_PB14
   * @param  new_state (TRUE or FALSE)

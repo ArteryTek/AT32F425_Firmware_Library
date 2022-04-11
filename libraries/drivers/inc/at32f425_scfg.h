@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_scfg.h
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    at32f425 system config header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -50,7 +50,7 @@ extern "C" {
 /** @defgroup SCFG_exported_types
   * @{
   */
-  
+
 /**
   * @brief scfg ultra high sourcing/sinking strength pins type
   */
@@ -60,8 +60,8 @@ typedef enum
   SCFG_ULTRA_DRIVEN_PB13                  = 0x00020000,
   SCFG_ULTRA_DRIVEN_PB9                   = 0x00040000,
   SCFG_ULTRA_DRIVEN_PB8                   = 0x00080000,
-} scfg_ultra_driven_pins_type;  
-  
+} scfg_ultra_driven_pins_type;
+
 /**
   * @brief scfg infrared modulation signal source selecting type
   */
@@ -104,11 +104,11 @@ typedef enum
   * @brief scfg i2s full duplex type
   */
 typedef enum
-{  
+{
   SCFG_FULL_DUPLEX_I2S_NONE              = 0x00, /* no i2s full duplex */
   SCFG_FULL_DUPLEX_I2S1_I2S3             = 0x01, /* i2s full duplex with i2s1 and i2s3 */
   SCFG_FULL_DUPLEX_I2S2_I2S3             = 0x02, /* i2s full duplex with i2s2 and i2s3 */
-  SCFG_FULL_DUPLEX_I2S1_I2S2             = 0x03, /* i2s full duplex with i2s1 and i2s2 */ 
+  SCFG_FULL_DUPLEX_I2S1_I2S2             = 0x03, /* i2s full duplex with i2s1 and i2s2 */
 } scfg_i2S_type;
 
 /**
@@ -131,7 +131,7 @@ typedef enum
   SCFG_PINS_SOURCE12                     = 0x0C,
   SCFG_PINS_SOURCE13                     = 0x0D,
   SCFG_PINS_SOURCE14                     = 0x0E,
-  SCFG_PINS_SOURCE15                     = 0x0F 
+  SCFG_PINS_SOURCE15                     = 0x0F
 } scfg_pins_source_type;
 
 /**
@@ -142,7 +142,7 @@ typedef enum
   SCFG_PORT_SOURCE_GPIOA                 = 0x00,
   SCFG_PORT_SOURCE_GPIOB                 = 0x01,
   SCFG_PORT_SOURCE_GPIOC                 = 0x02,
-  SCFG_PORT_SOURCE_GPIOD                 = 0x03,  
+  SCFG_PORT_SOURCE_GPIOD                 = 0x03,
   SCFG_PORT_SOURCE_GPIOF                 = 0x05,
 } scfg_port_source_type;
 
@@ -163,12 +163,12 @@ typedef struct
       __IO uint32_t reserved1            : 2; /* [3:2] */
       __IO uint32_t pa11_12_rmp          : 1; /* [4] */
       __IO uint32_t ir_pol               : 1; /* [5] */
-      __IO uint32_t ir_src_sel           : 2; /* [7:6] */      
-      __IO uint32_t reserved2            : 8; /* [15:8] */  
+      __IO uint32_t ir_src_sel           : 2; /* [7:6] */
+      __IO uint32_t reserved2            : 8; /* [15:8] */
       __IO uint32_t pb14_uh              : 1; /* [16] */
       __IO uint32_t pb13_uh              : 1; /* [17] */
       __IO uint32_t pb9_uh               : 1; /* [18] */
-      __IO uint32_t pb8_uh               : 1; /* [19] */      
+      __IO uint32_t pb8_uh               : 1; /* [19] */
       __IO uint32_t reserved3            : 12;/* [31:20] */
     } cfg1_bit;
   };
@@ -241,7 +241,7 @@ typedef struct
       __IO uint32_t reserved1            : 16;/* [31:16] */
     } exintc4_bit;
   };
-  
+
   /**
     * @brief scfg cfg2 register, offset:0x18
     */
@@ -252,7 +252,7 @@ typedef struct
     {
       __IO uint32_t reserved1            : 2; /* [1:0] */
       __IO uint32_t pvm_lk               : 1; /* [2] */
-      __IO uint32_t reserved2            : 27;/* [29:3] */     
+      __IO uint32_t reserved2            : 27;/* [29:3] */
       __IO uint32_t i2s_fd               : 2; /* [31:30] */
     } cfg2_bit;
   };
@@ -292,5 +292,5 @@ void scfg_pvm_lock_enable(confirm_state new_state);
 #ifdef __cplusplus
 }
 #endif
-  
+
 #endif

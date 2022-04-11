@@ -1,17 +1,17 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -30,11 +30,11 @@
 /** @addtogroup AT32F425_periph_examples
   * @{
   */
-  
+
 /** @addtogroup 425_PWC_standby_wakeup_pin PWC_standby_wakeup_pin
   * @{
   */
-  
+
 /**
   * @brief  main function.
   * @param  none
@@ -43,44 +43,44 @@
 int main(void)
 {
   __IO uint32_t index = 0;
-  
+
   /* congfig the system clock */
-  system_clock_config();  
+  system_clock_config();
 
   /* init at start board */
-  at32_board_init();  
-  
-  /* config priority group */  
+  at32_board_init();
+
+  /* config priority group */
   nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);
 
-  /* turn on the led light */  
+  /* turn on the led light */
   at32_led_off(LED2);
   at32_led_off(LED3);
   at32_led_off(LED4);
-  
+
   /* enable pwc clock */
   crm_periph_clock_enable(CRM_PWC_PERIPH_CLOCK, TRUE);
-  
+
   if(pwc_flag_get(PWC_STANDBY_FLAG) != RESET)
   {
     /* wakeup from standby */
     pwc_flag_clear(PWC_STANDBY_FLAG);
     at32_led_on(LED2);
   }
-  
+
   if(pwc_flag_get(PWC_WAKEUP_FLAG) != RESET)
   {
     /* wakeup event occurs */
     pwc_flag_clear(PWC_WAKEUP_FLAG);
     at32_led_on(LED3);
   }
-  
+
   at32_led_on(LED4);
   for(index = 0; index < 0xFFFFFF; index++);
-  
+
   /* enable wakeup pin1(pa0), pin2(pc13), pin4(pa2), pin5(pc5), pin6(pb5), pin7(pb15) */
   pwc_wakeup_pin_enable(PWC_WAKEUP_PIN_1 | PWC_WAKEUP_PIN_2 | PWC_WAKEUP_PIN_4 | PWC_WAKEUP_PIN_5 | PWC_WAKEUP_PIN_6 | PWC_WAKEUP_PIN_7, TRUE);
-  
+
   /* enter standby mode */
   pwc_standby_mode_enter();
   while(1)
@@ -90,8 +90,8 @@ int main(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */

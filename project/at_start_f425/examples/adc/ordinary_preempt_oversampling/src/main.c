@@ -1,17 +1,17 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -33,7 +33,7 @@
 /** @addtogroup AT32F425_periph_examples
   * @{
   */
-  
+
 /** @addtogroup 425_ADC_oversample ADC_oversample
   * @{
   */
@@ -62,7 +62,7 @@ static void gpio_config(void)
   gpio_initstructure.gpio_mode = GPIO_MODE_ANALOG;
   gpio_initstructure.gpio_pins = GPIO_PINS_4 | GPIO_PINS_5 | GPIO_PINS_6 | GPIO_PINS_7;
   gpio_init(GPIOA, &gpio_initstructure);
-  
+
   gpio_initstructure.gpio_mode = GPIO_MODE_ANALOG;
   gpio_initstructure.gpio_pins = GPIO_PINS_0 | GPIO_PINS_1;
   gpio_init(GPIOB, &gpio_initstructure);
@@ -79,9 +79,9 @@ static void dma_config(void)
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
   nvic_irq_enable(DMA1_Channel1_IRQn, 0, 0);
   dma_reset(DMA1_CHANNEL1);
-  
+
   dma_flexible_config(DMA1, FLEX_CHANNEL1, DMA_FLEXIBLE_ADC1);
-  
+
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.buffer_size = 15;
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
@@ -122,7 +122,7 @@ static void adc_config(void)
   adc_ordinary_channel_set(ADC1, ADC_CHANNEL_6, 3, ADC_SAMPLETIME_239_5);
   adc_ordinary_conversion_trigger_set(ADC1, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);
   adc_dma_mode_enable(ADC1, TRUE);
-  
+
   adc_preempt_channel_length_set(ADC1, 3);
   adc_preempt_channel_set(ADC1, ADC_CHANNEL_7, 1, ADC_SAMPLETIME_239_5);
   adc_preempt_channel_set(ADC1, ADC_CHANNEL_8, 2, ADC_SAMPLETIME_239_5);
@@ -130,19 +130,19 @@ static void adc_config(void)
   adc_preempt_conversion_trigger_set(ADC1, ADC12_PREEMPT_TRIG_TMR1CH2, TRUE);
   adc_preempt_auto_mode_enable(ADC1, TRUE);
   adc_interrupt_enable(ADC1, ADC_PCCE_INT, TRUE);
-  
+
   /* set oversampling ratio and shift */
   adc_oversample_ratio_shift_set(ADC1, ADC_OVERSAMPLE_RATIO_8, ADC_OVERSAMPLE_SHIFT_3);
-  
+
   /* disable ordinary oversampling trigger mode */
   adc_ordinary_oversample_trig_enable(ADC1, FALSE);
-  
+
   /* set ordinary oversample restart mode */
   adc_ordinary_oversample_restart_set(ADC1, ADC_OVERSAMPLE_CONTINUE);
-  
+
   /* enable ordinary oversampling */
   adc_ordinary_oversample_enable(ADC1, TRUE);
-  
+
   /* enable preempt oversampling */
   adc_preempt_oversample_enable(ADC1, TRUE);
 
@@ -191,8 +191,8 @@ int main(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */

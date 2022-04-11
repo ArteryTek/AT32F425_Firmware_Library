@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -91,12 +91,12 @@ static void spi_config(void)
   dma_reset(DMA1_CHANNEL3);
   dma_reset(DMA1_CHANNEL4);
   dma_reset(DMA1_CHANNEL5);
-  
+
   dma_flexible_config(DMA1, FLEX_CHANNEL4, DMA_FLEXIBLE_SPI2_RX);
   dma_flexible_config(DMA1, FLEX_CHANNEL5, DMA_FLEXIBLE_SPI2_TX);
   dma_flexible_config(DMA1, FLEX_CHANNEL2, DMA_FLEXIBLE_SPI1_RX);
   dma_flexible_config(DMA1, FLEX_CHANNEL3, DMA_FLEXIBLE_SPI1_TX);
-  
+
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.buffer_size = BUFFER_SIZE;
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
@@ -109,22 +109,22 @@ static void spi_config(void)
   dma_init_struct.priority = DMA_PRIORITY_MEDIUM;
   dma_init_struct.loop_mode_enable = FALSE;
   dma_init(DMA1_CHANNEL4, &dma_init_struct);
-  
+
   dma_init_struct.direction = DMA_DIR_MEMORY_TO_PERIPHERAL;
   dma_init_struct.memory_base_addr = (uint32_t)spi2_tx_buffer;
   dma_init_struct.peripheral_base_addr = (uint32_t)0x4000380C;
   dma_init(DMA1_CHANNEL5, &dma_init_struct);
-  
+
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
   dma_init_struct.memory_base_addr = (uint32_t)spi1_rx_buffer;
   dma_init_struct.peripheral_base_addr = (uint32_t)0x4001300C;
   dma_init(DMA1_CHANNEL2, &dma_init_struct);
-  
+
   dma_init_struct.direction = DMA_DIR_MEMORY_TO_PERIPHERAL;
   dma_init_struct.memory_base_addr = (uint32_t)spi1_tx_buffer;
   dma_init_struct.peripheral_base_addr = (uint32_t)0x4001300C;
   dma_init(DMA1_CHANNEL3, &dma_init_struct);
-  
+
 
   crm_periph_clock_enable(CRM_SPI1_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_SPI2_PERIPH_CLOCK, TRUE);
@@ -144,12 +144,12 @@ static void spi_config(void)
   spi_init(SPI2, &spi_init_struct);
 
   spi_hardware_cs_output_enable(SPI1, TRUE);
-  
+
   spi_i2s_dma_receiver_enable(SPI1, TRUE);
   spi_i2s_dma_transmitter_enable(SPI1, TRUE);
   spi_i2s_dma_receiver_enable(SPI2, TRUE);
   spi_i2s_dma_transmitter_enable(SPI2, TRUE);
-  
+
   spi_enable(SPI2, TRUE);
   spi_enable(SPI1, TRUE);
 }
@@ -164,7 +164,7 @@ static void gpio_config(void)
   gpio_init_type gpio_initstructure;
   crm_periph_clock_enable(CRM_GPIOA_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);
-  
+
   gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE4, GPIO_MUX_0);
   gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE5, GPIO_MUX_0);
   gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE6, GPIO_MUX_0);
@@ -217,7 +217,7 @@ static void gpio_config(void)
   gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;
   gpio_initstructure.gpio_pins           = GPIO_PINS_14;
   gpio_init(GPIOA, &gpio_initstructure);
-  
+
   /* slave cs pin */
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;
   gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;
@@ -247,7 +247,7 @@ int main(void)
   while(!dma_flag_get(DMA1_FDT3_FLAG));
   while(!dma_flag_get(DMA1_FDT4_FLAG));
   while(!dma_flag_get(DMA1_FDT5_FLAG));
-  
+
   /* test result:the data check */
   transfer_status1 = buffer_compare(spi2_rx_buffer, spi1_tx_buffer, BUFFER_SIZE);
   transfer_status2 = buffer_compare(spi1_rx_buffer, spi2_tx_buffer, BUFFER_SIZE);

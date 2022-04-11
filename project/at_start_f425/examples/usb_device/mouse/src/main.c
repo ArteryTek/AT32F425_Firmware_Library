@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -162,7 +162,7 @@ void usb_clock48m_select(usb_clk48_s clk_s)
     acc_write_c1(7980);
     acc_write_c2(8000);
     acc_write_c3(8020);
-    
+
     /* open acc calibration */
     acc_calibration_mode_enable(ACC_CAL_HICKTRIM, TRUE);
   }

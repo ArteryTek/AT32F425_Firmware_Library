@@ -1,17 +1,17 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.1
-  * @date     2022-02-11
+  * @version  v2.0.2
+  * @date     2022-04-02
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -32,11 +32,11 @@
 /** @addtogroup AT32F425_periph_examples
   * @{
   */
-  
+
 /** @addtogroup 425_ADC_voltage_monitoring ADC_voltage_monitoring
   * @{
   */
-  
+
 __IO uint16_t adc1_ordinary_valuetab[3] = {0};
 __IO uint16_t vmor_flag_index = 0;
 
@@ -70,9 +70,9 @@ static void dma_config(void)
   dma_init_type dma_init_struct;
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
   dma_reset(DMA1_CHANNEL1);
-  
+
   dma_flexible_config(DMA1, FLEX_CHANNEL1, DMA_FLEXIBLE_ADC1);
-  
+
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.buffer_size = 3;
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
@@ -158,9 +158,9 @@ int main(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
