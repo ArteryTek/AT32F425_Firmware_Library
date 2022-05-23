@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_board.h
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    header file for at-start board. set of firmware functions to
   *           manage leds and push-button. initialize delay function.
   **************************************************************************

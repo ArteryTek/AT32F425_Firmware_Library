@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -45,35 +45,35 @@
 
 #define I2Cx_ADDRESS                     0xA0
 
-#define I2Cx_PORT                        I2C1
-#define I2Cx_CLK                         CRM_I2C1_PERIPH_CLOCK
+#define I2Cx_PORT                        I2C2
+#define I2Cx_CLK                         CRM_I2C2_PERIPH_CLOCK
 #define I2Cx_DMA                         DMA1
 #define I2Cx_DMA_CLK                     CRM_DMA1_PERIPH_CLOCK
 
 #define I2Cx_SCL_GPIO_CLK                CRM_GPIOB_PERIPH_CLOCK
-#define I2Cx_SCL_GPIO_PIN                GPIO_PINS_6
-#define I2Cx_SCL_GPIO_PinsSource         GPIO_PINS_SOURCE6
+#define I2Cx_SCL_GPIO_PIN                GPIO_PINS_10
+#define I2Cx_SCL_GPIO_PinsSource         GPIO_PINS_SOURCE10
 #define I2Cx_SCL_GPIO_PORT               GPIOB
 #define I2Cx_SCL_GPIO_MUX                GPIO_MUX_1
 
 #define I2Cx_SDA_GPIO_CLK                CRM_GPIOB_PERIPH_CLOCK
-#define I2Cx_SDA_GPIO_PIN                GPIO_PINS_7
-#define I2Cx_SDA_GPIO_PinsSource         GPIO_PINS_SOURCE7
+#define I2Cx_SDA_GPIO_PIN                GPIO_PINS_11
+#define I2Cx_SDA_GPIO_PinsSource         GPIO_PINS_SOURCE11
 #define I2Cx_SDA_GPIO_PORT               GPIOB
 #define I2Cx_SDA_GPIO_MUX                GPIO_MUX_1
 
 #define I2Cx_DMA_TX_Channel              DMA1_CHANNEL1
 #define I2Cx_DMA_TX_DMAMUX_Channel       FLEX_CHANNEL1
-#define I2Cx_DMA_TX_DMAREQ               DMA_FLEXIBLE_I2C1_TX
+#define I2Cx_DMA_TX_DMAREQ               DMA_FLEXIBLE_I2C2_TX
 #define I2Cx_DMA_TX_IRQn                 DMA1_Channel1_IRQn
 
 #define I2Cx_DMA_RX_Channel              DMA1_CHANNEL2
 #define I2Cx_DMA_RX_DMAMUX_Channel       FLEX_CHANNEL2
-#define I2Cx_DMA_RX_DMAREQ               DMA_FLEXIBLE_I2C1_RX
+#define I2Cx_DMA_RX_DMAREQ               DMA_FLEXIBLE_I2C2_RX
 #define I2Cx_DMA_RX_IRQn                 DMA1_Channel3_2_IRQn
 
-#define I2Cx_EVT_IRQn                    I2C1_EVT_IRQn
-#define I2Cx_ERR_IRQn                    I2C1_ERR_IRQn
+#define I2Cx_EVT_IRQn                    I2C2_EVT_IRQn
+#define I2Cx_ERR_IRQn                    I2C2_ERR_IRQn
 
 #define BUF_SIZE                         8
 
@@ -303,7 +303,7 @@ void i2c_lowlevel_init(i2c_handle_type* hi2c)
     dma_flexible_config(DMA1, I2Cx_DMA_RX_DMAMUX_Channel, I2Cx_DMA_RX_DMAREQ);
 
     /* config i2c */
-    i2c_init(hi2c->i2cx, 0, I2Cx_CLKCTRL);
+    i2c_init(hi2c->i2cx, 0x0F, I2Cx_CLKCTRL);
 
     i2c_own_address1_set(hi2c->i2cx, I2C_ADDRESS_MODE_7BIT, I2Cx_ADDRESS);
   }

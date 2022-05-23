@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_crm.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    contains all the functions for the crm firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -61,15 +61,15 @@ void crm_reset(void)
   /* wait sclk switch status */
   while(CRM->cfg_bit.sclksts != CRM_SCLK_HICK);
 
+  /* reset hexten, hextbyps, cfden and pllen bits */
+  CRM->ctrl &= ~(0x010D0000U);
+
   /* reset cfg register, include sclk switch, ahbdiv, apb1div, apb2div, adcdiv,
      clkout pllrcs, pllhextdiv, pllmult, usbdiv and pllrange bits */
   CRM->cfg = 0;
 
   /* reset pllfr, pllms, pllns and pllfref bits */
   CRM->pll = (0x00001F10U);
-
-  /* reset hexten, hextbyps, cfden and pllen bits */
-  CRM->ctrl &= ~(0x010D0000U);
 
   /* reset clkout[3], usbbufs, hickdiv, clkoutdiv */
   CRM->misc1 = 0x00100000;
@@ -297,6 +297,9 @@ void crm_clock_source_enable(crm_clock_source_type source, confirm_state new_sta
       break;
     case CRM_CLOCK_SOURCE_PLL:
       CRM->ctrl_bit.pllen = new_state;
+    
+      /* reset usb divider */
+      crm_usb_div_reset();
       break;
     case CRM_CLOCK_SOURCE_LEXT:
       CRM->bpdc_bit.lexten = new_state;
@@ -342,6 +345,7 @@ void crm_flag_clear(uint32_t flag)
     case CRM_LOWPOWER_RESET_FLAG:
     case CRM_ALL_RESET_FLAG:
       CRM->ctrlsts_bit.rstfc = TRUE;
+      while(CRM->ctrlsts_bit.rstfc == TRUE);
       break;
     case CRM_LICK_READY_INT_FLAG:
       CRM->clkint_bit.lickstblfc = TRUE;
@@ -693,36 +697,36 @@ void crm_clocks_freq_get(crm_clocks_freq_type *clocks_struct)
       pll_clock_source = CRM->cfg_bit.pllrcs;
       if(CRM->pll_bit.pllcfgen == FALSE)
       {
-      /* get multiplication factor */
-      pll_mult = CRM->cfg_bit.pllmult_l;
-      pll_mult_h = CRM->cfg_bit.pllmult_h;
+        /* get multiplication factor */
+        pll_mult = CRM->cfg_bit.pllmult_l;
+        pll_mult_h = CRM->cfg_bit.pllmult_h;
 
-      /* process high bits */
-      if((pll_mult_h != 0U) || (pll_mult == 15U))
-      {
-          pll_mult += ((16U * pll_mult_h) + 1U);
-      }
-      else
-      {
-          pll_mult += 2U;
-      }
-
-      if (pll_clock_source == 0x00)
-      {
-        /* hick divided by 2 selected as pll clock entry */
-        clocks_struct->sclk_freq = (HICK_VALUE >> 1) * pll_mult;
-      }
-      else
-      {
-        /* hext selected as pll clock entry */
-        if (CRM->cfg_bit.pllhextdiv != RESET)
+        /* process high bits */
+        if((pll_mult_h != 0U) || (pll_mult == 15U))
         {
-          /* hext clock divided by 2 */
-          clocks_struct->sclk_freq = (HEXT_VALUE / 2) * pll_mult;
+          pll_mult += ((16U * pll_mult_h) + 1U);
         }
         else
         {
-          clocks_struct->sclk_freq = HEXT_VALUE * pll_mult;
+          pll_mult += 2U;
+        }
+
+        if (pll_clock_source == 0x00)
+        {
+          /* hick divided by 2 selected as pll clock entry */
+          clocks_struct->sclk_freq = (HICK_VALUE >> 1) * pll_mult;
+        }
+        else
+        {
+          /* hext selected as pll clock entry */
+          if (CRM->cfg_bit.pllhextdiv != RESET)
+          {
+            /* hext clock divided by 2 */
+            clocks_struct->sclk_freq = (HEXT_VALUE / 2) * pll_mult;
+          }
+          else
+          {
+            clocks_struct->sclk_freq = HEXT_VALUE * pll_mult;
           }
         }
       }
@@ -889,6 +893,25 @@ void crm_usb_clock_source_select(crm_usb_clock_source_type value)
 void crm_clkout_div_set(crm_clkout_div_type clkout_div)
 {
   CRM->misc1_bit.clkoutdiv = clkout_div;
+}
+
+/**
+  * @brief  reset usb divider
+  *         when enable pll, usb divider must reset.
+  * @param  none
+  * @retval none
+  */
+void crm_usb_div_reset(void)
+{
+  uint8_t div_h = 0;
+
+  /* reset usb divider */
+  CRM->otg_exctrl_bit.usbdiv_rst = 1;
+  CRM->otg_exctrl_bit.usbdiv_rst = 0;
+
+  div_h = CRM->cfg_bit.usbdiv_h;
+  CRM->cfg_bit.usbdiv_h = (~div_h) & 0x01;
+  CRM->cfg_bit.usbdiv_h = div_h;
 }
 
 /**

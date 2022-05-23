@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     msc_diskio.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    usb mass storage disk function
   **************************************************************************
   *                       Copyright notice & Disclaimer

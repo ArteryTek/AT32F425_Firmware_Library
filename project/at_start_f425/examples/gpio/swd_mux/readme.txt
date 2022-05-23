@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     readme.txt
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    readme
   **************************************************************************
   */
@@ -11,3 +11,4 @@
   description of how to use the swd ios as standard gpios or mux other peripheral.
   the pa13(swdio) as general io output push-pull toggled, pa14(swclk) as usart2
   tx send data.
+  for more detailed information. please refer to the application note document AN0125.

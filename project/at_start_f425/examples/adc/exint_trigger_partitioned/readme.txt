@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     readme.txt
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    readme
   **************************************************************************
   */
@@ -19,3 +19,4 @@
   trigger source:
   - ordinary   -->  exint line11(pa11)
   - preempt    -->  exint line15(pa15)
+  for more detailed information. please refer to the application note document AN0124.

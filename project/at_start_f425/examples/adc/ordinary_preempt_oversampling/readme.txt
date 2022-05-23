@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     readme.txt
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    readme
   **************************************************************************
   */
@@ -15,4 +15,5 @@
   - adc1_ordinary_valuetab[n][2] ---> adc1_channel_6
   - adc1_preempt_valuetab[n][0]  ---> adc1_channel_7
   - adc1_preempt_valuetab[n][1]  ---> adc1_channel_8
-  - adc1_preempt_valuetab[n][2]  ---> adc1_channel_9
+  - adc1_preempt_valuetab[n][2]  ---> adc1_channel_9
+  for more detailed information. please refer to the application note document AN0124.

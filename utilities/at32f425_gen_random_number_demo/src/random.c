@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     random.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    set of firmware functions to random function
   **************************************************************************
   *                       Copyright notice & Disclaimer

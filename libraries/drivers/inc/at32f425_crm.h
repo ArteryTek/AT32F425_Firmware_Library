@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_crm.h
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    at32f425 crm header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -601,7 +601,7 @@ typedef struct
       __IO uint32_t wwdtrst              : 1; /* [11] */
       __IO uint32_t reserved4            : 2; /* [13:12] */
       __IO uint32_t spi2rst              : 1; /* [14] */
-			__IO uint32_t spi3rst              : 1; /* [15] */
+      __IO uint32_t spi3rst              : 1; /* [15] */
       __IO uint32_t reserved5            : 1; /* [16] */
       __IO uint32_t usart2rst            : 1; /* [17] */
       __IO uint32_t usart3rst            : 1; /* [18] */
@@ -690,7 +690,7 @@ typedef struct
       __IO uint32_t wwdten               : 1; /* [11] */
       __IO uint32_t reserved4            : 2; /* [13:12] */
       __IO uint32_t spi2en               : 1; /* [14] */
-			__IO uint32_t spi3en               : 1; /* [15] */
+      __IO uint32_t spi3en               : 1; /* [15] */
       __IO uint32_t reserved5            : 1; /* [16] */
       __IO uint32_t usart2en             : 1; /* [17] */
       __IO uint32_t usart3en             : 1; /* [18] */
@@ -810,9 +810,28 @@ typedef struct
   };
 
   /**
-    * @brief crm reserved2 register, offset:0x50~0x34
+    * @brief crm reserved2 register, offset:0x40~0x34
     */
-  __IO uint32_t reserved2[8];
+  __IO uint32_t reserved2[4];
+
+  /**
+    * @brief crm otg_exctrl register, offset:0x44
+    */
+  union
+  {
+    __IO uint32_t otg_exctrl;
+    struct
+    {
+    __IO uint32_t reserved1            : 30; /* [29:0] */
+      __IO uint32_t usbdiv_rst           : 1; /* [30] */
+      __IO uint32_t reserved2            : 1; /* [31] */
+    } otg_exctrl_bit;
+  };
+
+  /**
+    * @brief crm reserved2 register, offset:0x50~0x48
+    */
+  __IO uint32_t reserved3[3];
 
   /**
     * @brief crm misc2 register, offset:0x54
@@ -873,6 +892,7 @@ void crm_hick_divider_select(crm_hick_div_6_type value);
 void crm_hick_sclk_frequency_select(crm_hick_sclk_frequency_type value);
 void crm_usb_clock_source_select(crm_usb_clock_source_type value);
 void crm_clkout_div_set(crm_clkout_div_type clkout_div);
+void crm_usb_div_reset(void);
 
 /**
   * @}

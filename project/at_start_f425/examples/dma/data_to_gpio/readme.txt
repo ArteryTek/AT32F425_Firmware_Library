@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     readme.txt
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    readme
   **************************************************************************
   */
@@ -13,3 +13,4 @@
   channel5 is configured to transfer the contents of a 16-halfword data buffer
   stored in embedded sram memory to the gpiob. if transfer full data, the three 
   leds will turn on. user can use logic analyzer get waveform.
+  for more detailed information. please refer to the application note document AN0123.

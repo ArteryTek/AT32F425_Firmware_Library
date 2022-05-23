@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -86,7 +86,7 @@ static void can_configuration(void)
 
   /* can baudrate, set boudrate = pclk/(baudrate_div *(1 + bts1_size + bts2_size)) */
   can_baudrate_struct.baudrate_div = 8;
-  can_baudrate_struct.rsaw_size = CAN_RSAW_1TQ;
+  can_baudrate_struct.rsaw_size = CAN_RSAW_3TQ;
   can_baudrate_struct.bts1_size = CAN_BTS1_8TQ;
   can_baudrate_struct.bts2_size = CAN_BTS2_3TQ;
   can_baudrate_set(CAN1, &can_baudrate_struct);
@@ -106,6 +106,8 @@ static void can_configuration(void)
   /* can interrupt config */
   nvic_irq_enable(CAN1_IRQn, 0x00, 0x00);
   can_interrupt_enable(CAN1, CAN_RF0MIEN_INT, TRUE);
+  
+  /* error interrupt enable */
   can_interrupt_enable(CAN1, CAN_ETRIEN_INT, TRUE);
   can_interrupt_enable(CAN1, CAN_EOIEN_INT, TRUE);
 }
@@ -150,10 +152,11 @@ void CAN1_IRQHandler(void)
   {
     err_index = CAN1->ests & 0x70;
     can_flag_clear(CAN1, CAN_ETR_FLAG);
+    /* error type is stuff error */
     if(err_index == 0x00000010)
     {
-      can_reset(CAN1);
-      can_configuration();
+      /* when stuff error occur: in order to ensure communication normally,
+      user must restart can or send a frame of highest priority message here */
     }
   }
   if(can_flag_get(CAN1,CAN_RF0MN_FLAG) != RESET)

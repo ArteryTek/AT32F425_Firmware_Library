@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_int.c
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    main interrupt service routines.
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -40,8 +40,8 @@ extern i2c_handle_type hi2cx;
 
 #define I2Cx_DMA_TX_IRQHandler           DMA1_Channel1_IRQHandler
 #define I2Cx_DMA_RX_IRQHandler           DMA1_Channel3_2_IRQHandler
-#define I2Cx_EVT_IRQHandler              I2C1_EVT_IRQHandler
-#define I2Cx_ERR_IRQHandler              I2C1_ERR_IRQHandler
+#define I2Cx_EVT_IRQHandler              I2C2_EVT_IRQHandler
+#define I2Cx_ERR_IRQHandler              I2C2_ERR_IRQHandler
 
 /**
   * @brief  this function handles nmi exception.

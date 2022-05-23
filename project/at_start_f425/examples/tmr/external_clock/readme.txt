@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     readme.txt
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    readme
   **************************************************************************
   */
@@ -11,3 +11,5 @@
   connection :
   - pa8    <--->    pa7
   - pa6 output 10.42 hz pwm waveform   
+
+  for more detailed information. please refer to the application note document AN0085.

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     i2c_application.h
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    i2c application libray header file
   **************************************************************************
   *                       Copyright notice & Disclaimer

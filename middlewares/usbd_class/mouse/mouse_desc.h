@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     mouse_desc.h
-  * @version  v2.0.2
-  * @date     2022-04-02
+  * @version  v2.0.3
+  * @date     2022-05-20
   * @brief    usb mouse descriptor header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
