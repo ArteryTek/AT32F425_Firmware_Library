@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_crm.c
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    contains all the functions for the crm firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -297,9 +297,6 @@ void crm_clock_source_enable(crm_clock_source_type source, confirm_state new_sta
       break;
     case CRM_CLOCK_SOURCE_PLL:
       CRM->ctrl_bit.pllen = new_state;
-    
-      /* reset usb divider */
-      crm_usb_div_reset();
       break;
     case CRM_CLOCK_SOURCE_LEXT:
       CRM->bpdc_bit.lexten = new_state;

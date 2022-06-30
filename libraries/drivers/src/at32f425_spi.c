@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_spi.c
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    contains all the functions for the spi firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -565,6 +565,7 @@ uint16_t spi_i2s_data_receive(spi_type* spi_x)
   *         - SPI_MMERR_FLAG  (this flag only use in spi mode)
   *         - SPI_I2S_ROERR_FLAG
   *         - SPI_I2S_BF_FLAG
+  *         - SPI_CSPAS_FLAG
   * @retval the new state of spi/i2s flag
   */
 flag_status spi_i2s_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
@@ -593,6 +594,7 @@ flag_status spi_i2s_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
   *         - I2S_TUERR_FLAG
   *         - SPI_MMERR_FLAG
   *         - SPI_I2S_ROERR_FLAG
+  *         - SPI_CSPAS_FLAG
   * @note
   *         SPI_I2S_TDBE_FLAG  this flag is cleared when the tx buffer already contain data to be transmit.
   *         I2S_ACS_FLAG       this flag cann't cleared by software,the flag indicate the channel side(not use in pcm standard mode).
@@ -601,23 +603,23 @@ flag_status spi_i2s_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
   */
 void spi_i2s_flag_clear(spi_type* spi_x, uint32_t spi_i2s_flag)
 {
-  volatile uint32_t temp = 0;
-  temp = temp;
   if(spi_i2s_flag == SPI_CCERR_FLAG)
     spi_x->sts = ~SPI_CCERR_FLAG;
   else if(spi_i2s_flag == SPI_I2S_RDBF_FLAG)
-    temp = REG32(&spi_x->dt);
+    UNUSED(spi_x->dt);
   else if(spi_i2s_flag == I2S_TUERR_FLAG)
-    temp = REG32(&spi_x->sts);
+    UNUSED(spi_x->sts);
+  else if(spi_i2s_flag == SPI_CSPAS_FLAG)
+    UNUSED(spi_x->sts);
   else if(spi_i2s_flag == SPI_MMERR_FLAG)
   {
-    temp = REG32(&spi_x->sts);
+    UNUSED(spi_x->sts);
     spi_x->ctrl1 = spi_x->ctrl1;
   }
   else if(spi_i2s_flag == SPI_I2S_ROERR_FLAG)
   {
-    temp = REG32(&spi_x->dt);
-    temp = REG32(&spi_x->sts);
+    UNUSED(spi_x->dt);
+    UNUSED(spi_x->sts);
   }
 }
 

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_tmr.c
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    contains all the functions for the tmr firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -54,6 +54,11 @@ void tmr_reset(tmr_type *tmr_x)
   {
     crm_periph_reset(CRM_TMR1_PERIPH_RESET, TRUE);
     crm_periph_reset(CRM_TMR1_PERIPH_RESET, FALSE);
+  }
+  else if(tmr_x == TMR2)
+  {
+    crm_periph_reset(CRM_TMR2_PERIPH_RESET, TRUE);
+    crm_periph_reset(CRM_TMR2_PERIPH_RESET, FALSE);
   }
   else if(tmr_x == TMR3)
   {
@@ -175,7 +180,7 @@ void tmr_base_init(tmr_type* tmr_x, uint32_t tmr_pr, uint32_t tmr_div)
   * @brief  set tmr clock source division
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
-  *         TMR1, TMR2, TMR3, TMR6, TMR7, TMR13, TMR14, TMR15, TMR16, TMR17
+  *         TMR1, TMR2, TMR3, TMR13, TMR14, TMR15, TMR16, TMR17
   * @param  tmr_clock_div
   *         this parameter can be one of the following values:
   *         - TMR_CLOCK_DIV1
@@ -302,7 +307,7 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
   /* get channel complementary idle state bit position in ctrl2 register */
   channel_c_index = (uint16_t)(tmr_output_struct->occ_idle_state << (9 + tmr_channel));
 
-  if(tmr_x == TMR1)
+  if(tmr_x == TMR1 || tmr_x == TMR15 || tmr_x == TMR16 || tmr_x == TMR17)
   {
     /* set output channel complementary idle state */
     tmr_x->ctrl2 &= ~channel_c_index;
@@ -344,7 +349,7 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
   /* get channel complementary polarity bit position in cctrl register */
   channel_c_index = (uint16_t)(tmr_output_struct->occ_polarity << ((tmr_channel * 2) + 3));
 
-  if(tmr_x == TMR1)
+  if(tmr_x == TMR1 || tmr_x == TMR15 || tmr_x == TMR16 || tmr_x == TMR17)
   {
     /* set output channel complementary polarity */
     tmr_x->cctrl &= ~channel_c_index;
@@ -361,7 +366,7 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
   /* get channel complementary enable bit position in cctrl register */
   channel_c_index = (uint16_t)(tmr_output_struct->occ_output_state << ((tmr_channel * 2) + 2));
 
-  if(tmr_x == TMR1)
+  if(tmr_x == TMR1 || tmr_x == TMR15 || tmr_x == TMR16 || tmr_x == TMR17)
   {
     /* set output channel complementary enable bit */
     tmr_x->cctrl &= ~channel_c_index;
@@ -705,6 +710,23 @@ void tmr_one_cycle_mode_enable(tmr_type *tmr_x, confirm_state new_state)
 }
 
 /**
+  * @brief  enable or disable  tmr 32 bit function(plus mode)
+  * @param  tmr_x: select the tmr peripheral.
+  *         this parameter can be one of the following values:
+  *         TMR2
+  * @param  new_state (TRUE or FALSE)
+  * @retval none
+  */
+void tmr_32_bit_function_enable (tmr_type *tmr_x, confirm_state new_state)
+{
+  /* tmr 32 bit function(plus mode) enable,only for TMR2 */
+  if(tmr_x == TMR2)
+  {
+    tmr_x->ctrl1_bit.pmen = new_state;
+  }
+}
+
+/**
   * @brief  select tmr the overflow event sources
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
@@ -1014,15 +1036,15 @@ void tmr_pwm_input_config(tmr_type *tmr_x, tmr_input_config_type *input_struct, 
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
   *         TMR1, TMR2, TMR3, TMR15
-  * @param  ti1_connect
+  * @param  ch1_connect
   *         this parameter can be one of the following values:
   *         - TMR_CHANEL1_CONNECTED_C1IRAW
   *         - TMR_CHANEL1_2_3_CONNECTED_C1IRAW_XOR
   * @retval none
   */
-void tmr_channel1_input_select(tmr_type *tmr_x, tmr_channel1_input_connected_type ti1_connect)
+void tmr_channel1_input_select(tmr_type *tmr_x, tmr_channel1_input_connected_type ch1_connect)
 {
-  tmr_x->ctrl2_bit.c1insel = ti1_connect;
+  tmr_x->ctrl2_bit.c1insel = ch1_connect;
 }
 
 /**
@@ -1659,7 +1681,7 @@ void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct)
   *         TMR14
   * @param  input_remap
   *         - TMR14_GPIO
-  *         - TMR14_LICK
+  *         - TMR14_ERTCCLK
   *         - TMR14_HEXT_DIV32
   *         - TMR14_CLKOUT
   * @retval none

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_scfg.c
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    contains all the functions for the system config firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -92,7 +92,7 @@ uint8_t scfg_mem_map_get(void)
   *         - SCFG_PA11PA12_TO_PA9PA10
   * @retval none
   */
-void scfg_pa11pa12_pin_remap (scfg_pa11pa12_remap_type pin_remap)
+void scfg_pa11pa12_pin_remap(scfg_pa11pa12_remap_type pin_remap)
 {
   SCFG->cfg1_bit.pa11_12_rmp = pin_remap;
 }
@@ -194,7 +194,7 @@ void scfg_pins_ultra_driven_enable(scfg_ultra_driven_pins_type value, confirm_st
   *         - SCFG_FULL_DUPLEX_I2S1_I2S2
   * @retval none
   */
-void scfg_i2s_full_duplex_config(scfg_i2S_type i2s_full_duplex)
+void scfg_i2s_full_duplex_config(scfg_i2s_type i2s_full_duplex)
 {
   SCFG->cfg2_bit.i2s_fd = i2s_full_duplex;
 }

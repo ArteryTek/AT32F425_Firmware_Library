@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_tmr.h
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    at32f425 tmr header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -397,7 +397,7 @@ typedef enum
 typedef enum
 {
   TMR14_GPIO                             = 0x00, /*!< tmr14 input remap to gpio */
-  TMR14_LICK                             = 0x01, /*!< tmr14 input remap to lick */
+  TMR14_ERTCCLK                          = 0x01, /*!< tmr14 input remap to ertc clock */
   TMR14_HEXT_DIV32                       = 0x02, /*!< tmr14 input remap to hext div32*/
   TMR14_CLKOUT                           = 0x03  /*!< tmr14 input remap to clkout */
 }tmr_input_remap_type ;
@@ -897,6 +897,7 @@ void tmr_output_channel_immediately_set(tmr_type *tmr_x, tmr_channel_select_type
 void tmr_output_channel_switch_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel, \
                                    confirm_state new_state);
 void tmr_one_cycle_mode_enable(tmr_type *tmr_x, confirm_state new_state);
+void tmr_32_bit_function_enable (tmr_type *tmr_x, confirm_state new_state);
 void tmr_overflow_request_source_set(tmr_type *tmr_x, confirm_state new_state);
 void tmr_overflow_event_disable(tmr_type *tmr_x, confirm_state new_state);
 void tmr_input_channel_init(tmr_type *tmr_x, tmr_input_config_type *input_struct, \
@@ -906,7 +907,7 @@ void tmr_input_channel_filter_set(tmr_type *tmr_x, tmr_channel_select_type tmr_c
                                   uint16_t filter_value);
 void tmr_pwm_input_config(tmr_type *tmr_x, tmr_input_config_type *input_struct, \
                           tmr_channel_input_divider_type divider_factor);
-void tmr_channel1_input_select(tmr_type *tmr_x, tmr_channel1_input_connected_type ti1_connect);
+void tmr_channel1_input_select(tmr_type *tmr_x, tmr_channel1_input_connected_type ch1_connect);
 void tmr_input_channel_divider_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel, \
                                    tmr_channel_input_divider_type divider_factor);
 void tmr_primary_mode_select(tmr_type *tmr_x, tmr_primary_select_type primary_mode);

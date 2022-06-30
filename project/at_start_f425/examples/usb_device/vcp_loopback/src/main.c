@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -142,6 +142,9 @@ void usb_clock48m_select(usb_clk48_s clk_s)
   }
   else
   {
+    /* usb divider reset */
+    crm_usb_div_reset();
+
     switch(system_core_clock)
     {
       /* 48MHz */

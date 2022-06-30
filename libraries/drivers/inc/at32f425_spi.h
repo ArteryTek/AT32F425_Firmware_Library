@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_spi.h
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    at32f425 spi header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -58,6 +58,7 @@ extern "C" {
 #define SPI_MMERR_FLAG                   0x0020 /*!< spi master mode error flag */
 #define SPI_I2S_ROERR_FLAG               0x0040 /*!< spi or i2s receiver overflow error flag */
 #define SPI_I2S_BF_FLAG                  0x0080 /*!< spi or i2s busy flag */
+#define SPI_CSPAS_FLAG                   0x0100 /*!< spi cs pulse abnormal setting fiag */
 
 /**
   * @}

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_scfg.h
-  * @version  v2.0.3
-  * @date     2022-05-20
+  * @version  v2.0.4
+  * @date     2022-06-28
   * @brief    at32f425 system config header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -109,7 +109,7 @@ typedef enum
   SCFG_FULL_DUPLEX_I2S1_I2S3             = 0x01, /* i2s full duplex with i2s1 and i2s3 */
   SCFG_FULL_DUPLEX_I2S2_I2S3             = 0x02, /* i2s full duplex with i2s2 and i2s3 */
   SCFG_FULL_DUPLEX_I2S1_I2S2             = 0x03, /* i2s full duplex with i2s1 and i2s2 */
-} scfg_i2S_type;
+} scfg_i2s_type;
 
 /**
   * @brief scfg pin source type
@@ -271,10 +271,10 @@ typedef struct
 void scfg_reset(void);
 void scfg_infrared_config(scfg_ir_source_type source, scfg_ir_polarity_type polarity);
 uint8_t scfg_mem_map_get(void);
-void scfg_pa11pa12_pin_remap (scfg_pa11pa12_remap_type pin_remap);
+void scfg_pa11pa12_pin_remap(scfg_pa11pa12_remap_type pin_remap);
 void scfg_exint_line_config(scfg_port_source_type port_source, scfg_pins_source_type pin_source);
 void scfg_pins_ultra_driven_enable(scfg_ultra_driven_pins_type value, confirm_state new_state);
-void scfg_i2s_full_duplex_config(scfg_i2S_type i2s_full_duplex);
+void scfg_i2s_full_duplex_config(scfg_i2s_type i2s_full_duplex);
 void scfg_pvm_lock_enable(confirm_state new_state);
 
 /**
