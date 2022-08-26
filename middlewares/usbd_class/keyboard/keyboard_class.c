@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     keyboard_class.c
-  * @version  v2.0.4
-  * @date     2022-06-28
+  * @version  v2.0.5
+  * @date     2022-08-16
   * @brief    usb hid keyboard class type
   **************************************************************************
   *                       Copyright notice & Disclaimer

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425.h
-  * @version  v2.0.4
-  * @date     2022-06-28
+  * @version  v2.0.5
+  * @date     2022-08-16
   * @brief    at32f425 header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -54,18 +54,20 @@ extern "C" {
 
 #if !defined (AT32F425R8T7)   && !defined (AT32F425R8T7_7) && !defined (AT32F425C8T7)   && \
     !defined (AT32F425C8U7)   && !defined (AT32F425K8T7)   && !defined (AT32F425K8U7_4) && \
-    !defined (AT32F425F8P7)   && !defined (AT32F425R6T7)   && !defined (AT32F425R6T7_7) && \
-    !defined (AT32F425C6T7)   && !defined (AT32F425C6U7)   && !defined (AT32F425K6T7)   && \
-    !defined (AT32F425K6U7_4) && !defined (AT32F425F6P7)
+    !defined (AT32F425F8P7)   && !defined (AT32F425G8U7)   && !defined (AT32F425R6T7)   && \
+    !defined (AT32F425R6T7_7) && !defined (AT32F425C6T7)   && !defined (AT32F425C6U7)   && \
+    !defined (AT32F425K6T7)   && !defined (AT32F425K6U7_4) && !defined (AT32F425F6P7)   && \
+    !defined (AT32F425G6U7)
 
     #error "Please select first the target device used in your application (in at32f425.h file)"
 #endif
 
 #if defined (AT32F425R8T7)   || defined (AT32F425R8T7_7) || defined (AT32F425C8T7)   || \
     defined (AT32F425C8U7)   || defined (AT32F425K8T7)   || defined (AT32F425K8U7_4) || \
-    defined (AT32F425F8P7)   || defined (AT32F425R6T7)   || defined (AT32F425R6T7_7) || \
-    defined (AT32F425C6T7)   || defined (AT32F425C6U7)   || defined (AT32F425K6T7)   || \
-    defined (AT32F425K6U7_4) || defined (AT32F425F6P7)
+    defined (AT32F425F8P7)   || defined (AT32F425G8U7)   || defined (AT32F425R6T7)   || \
+    defined (AT32F425R6T7_7) || defined (AT32F425C6T7)   || defined (AT32F425C6U7)   || \
+    defined (AT32F425K6T7)   || defined (AT32F425K6U7_4) || defined (AT32F425F6P7)   || \
+    defined (AT32F425G6U7)
 
     #define AT32F425xx
 #endif
@@ -89,7 +91,7 @@ extern "C" {
   */
 #define __AT32F425_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F425_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F425_LIBRARY_VERSION_MINOR    (0x04) /*!< [15:8]  minor version */
+#define __AT32F425_LIBRARY_VERSION_MINOR    (0x05) /*!< [15:8]  minor version */
 #define __AT32F425_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F425_LIBRARY_VERSION          ((__AT32F425_LIBRARY_VERSION_MAJOR << 24)  | \
                                              (__AT32F425_LIBRARY_VERSION_MIDDLE << 16) | \

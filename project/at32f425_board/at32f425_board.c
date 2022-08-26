@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_board.c
-  * @version  v2.0.4
-  * @date     2022-06-28
+  * @version  v2.0.5
+  * @date     2022-08-16
   * @brief    set of firmware functions to manage leds and push-button.
   *           initialize delay function.
   **************************************************************************
@@ -99,6 +99,18 @@ PUTCHAR_PROTOTYPE
   return ch;
 }
 
+#if defined (__GNUC__) && !defined (__clang__)
+int _write(int fd, char *pbuffer, int size)
+{
+  for(int i = 0; i < size; i ++)
+  {
+    __io_putchar(*pbuffer++);
+  }
+
+  return size;
+}
+#endif
+
 /**
   * @brief  initialize uart
   * @param  baudrate: uart baudrate
@@ -160,6 +172,10 @@ void at32_board_init()
 void at32_button_init(void)
 {
   gpio_init_type gpio_init_struct;
+
+#if defined (__GNUC__) && !defined (__clang__)
+  setvbuf(stdout, NULL, _IONBF, 0);
+#endif
 
   /* enable the button clock */
   crm_periph_clock_enable(USER_BUTTON_CRM_CLK, TRUE);

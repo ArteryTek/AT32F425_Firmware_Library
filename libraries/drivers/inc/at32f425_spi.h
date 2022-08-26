@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     at32f425_spi.h
-  * @version  v2.0.4
-  * @date     2022-06-28
+  * @version  v2.0.5
+  * @date     2022-08-16
   * @brief    at32f425 spi header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -329,7 +329,7 @@ typedef struct
       __IO uint32_t rdbfie               : 1; /* [6] */
       __IO uint32_t tdbeie               : 1; /* [7] */
       __IO uint32_t mdiv_h               : 1; /* [8] */
-      __IO uint32_t mdiv3en             : 1; /* [9] */
+      __IO uint32_t mdiv3en              : 1; /* [9] */
       __IO uint32_t reserved2            : 22;/* [31:10] */
     } ctrl2_bit;
   };
@@ -350,7 +350,8 @@ typedef struct
       __IO uint32_t mmerr                : 1; /* [5] */
       __IO uint32_t roerr                : 1; /* [6] */
       __IO uint32_t bf                   : 1; /* [7] */
-      __IO uint32_t reserved1            : 24;/* [31:8] */
+      __IO uint32_t cspas                : 1; /* [8] */
+      __IO uint32_t reserved1            : 23;/* [31:9] */
     } sts_bit;
   };
 

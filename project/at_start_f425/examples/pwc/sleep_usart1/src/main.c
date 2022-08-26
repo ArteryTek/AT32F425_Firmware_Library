@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * @file     main.c
-  * @version  v2.0.4
-  * @date     2022-06-28
+  * @version  v2.0.5
+  * @date     2022-08-16
   * @brief    main program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -135,7 +135,7 @@ int main(void)
     printf("now exit sleep mode by usart1 rdbf interrupt \r\n");
 
     at32_led_on(LED2);
-    for(index = 0; index < 500000; index++);
+    delay_ms(500);
   }
 }
 
