@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425_spi.h
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    at32f425 spi header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -452,7 +450,10 @@ typedef struct
 
 #define SPI1                            ((spi_type *) SPI1_BASE)
 #define SPI2                            ((spi_type *) SPI2_BASE)
+#if defined (AT32F425Rx) || defined (AT32F425Cx) || defined (AT32F425Kx) || \
+    defined (AT32F425Gx)
 #define SPI3                            ((spi_type *) SPI3_BASE)
+#endif
 
 /** @defgroup SPI_exported_functions
   * @{

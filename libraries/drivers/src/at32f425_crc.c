@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425_crc.c
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    contains all the functions for the crc firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

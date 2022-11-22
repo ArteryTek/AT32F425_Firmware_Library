@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425_spi.c
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    contains all the functions for the spi firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -60,6 +58,14 @@ void spi_i2s_reset(spi_type *spi_x)
     crm_periph_reset(CRM_SPI2_PERIPH_RESET, TRUE);
     crm_periph_reset(CRM_SPI2_PERIPH_RESET, FALSE);
   }
+#if defined (AT32F425Rx) || defined (AT32F425Cx) || defined (AT32F425Kx) || \
+    defined (AT32F425Gx)
+  else if(spi_x == SPI3)
+  {
+    crm_periph_reset(CRM_SPI3_PERIPH_RESET, TRUE);
+    crm_periph_reset(CRM_SPI3_PERIPH_RESET, FALSE);
+  }
+#endif
 }
 
 /**

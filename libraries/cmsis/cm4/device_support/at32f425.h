@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425.h
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    at32f425 header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -72,6 +70,34 @@ extern "C" {
     #define AT32F425xx
 #endif
 
+#if defined (AT32F425R8T7)   || defined (AT32F425R8T7_7) || defined (AT32F425R6T7)   || \
+    defined (AT32F425R6T7_7)
+
+    #define AT32F425Rx
+#endif
+
+#if defined (AT32F425C8T7)   || defined (AT32F425C8U7)   || defined (AT32F425C6T7)   || \
+    defined (AT32F425C6U7)
+
+    #define AT32F425Cx
+#endif
+
+#if defined (AT32F425K8T7)   || defined (AT32F425K8U7_4) || defined (AT32F425K6T7)   || \
+    defined (AT32F425K6U7_4)
+
+    #define AT32F425Kx
+#endif
+
+#if defined (AT32F425G8U7)   || defined (AT32F425G6U7)
+
+    #define AT32F425Gx
+#endif
+
+#if defined (AT32F425F8P7)   || defined (AT32F425F6P7)
+
+    #define AT32F425Fx
+#endif
+
 #ifndef USE_STDPERIPH_DRIVER
 /**
   * @brief comment the line below if you will not use the peripherals drivers.
@@ -91,7 +117,7 @@ extern "C" {
   */
 #define __AT32F425_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F425_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F425_LIBRARY_VERSION_MINOR    (0x05) /*!< [15:8]  minor version */
+#define __AT32F425_LIBRARY_VERSION_MINOR    (0x06) /*!< [15:8]  minor version */
 #define __AT32F425_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F425_LIBRARY_VERSION          ((__AT32F425_LIBRARY_VERSION_MAJOR << 24)  | \
                                              (__AT32F425_LIBRARY_VERSION_MIDDLE << 16) | \

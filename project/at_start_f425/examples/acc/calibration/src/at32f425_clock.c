@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425_clock.c
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    system clock config program
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -30,17 +28,16 @@
 /**
   * @brief  system clock config program
   * @note   the system clock is configured as follow:
-  *         - system clock        = hext * pll_mult
-  *         - system clock source = pll (hext)
-  *         - hext                = 8000000
+  *         - system clock        = hick / 12 * pll_mult
+  *         - system clock source = pll (hick)
   *         - sclk                = 96000000
   *         - ahbdiv              = 1
   *         - ahbclk              = 96000000
-  *         - apb2div             = 1
-  *         - apb2clk             = 96000000
   *         - apb1div             = 1
   *         - apb1clk             = 96000000
-  *         - pll_mult            = 12
+  *         - apb2div             = 1
+  *         - apb2clk             = 96000000
+  *         - pll_mult            = 24
   *         - flash_wtcyc         = 2 cycle
   * @param  none
   * @retval none
@@ -50,18 +47,20 @@ void system_clock_config(void)
   /* config flash psr register */
   flash_psr_set(FLASH_WAIT_CYCLE_2);
 
+ 
   /* reset crm */
   crm_reset();
 
-  crm_clock_source_enable(CRM_CLOCK_SOURCE_HEXT, TRUE);
+  /* enable hick */
+  crm_clock_source_enable(CRM_CLOCK_SOURCE_HICK, TRUE);
 
-  /* wait till hext is ready */
-  while(crm_hext_stable_wait() == ERROR)
+   /* wait till hick is ready */
+  while(crm_flag_get(CRM_HICK_STABLE_FLAG) != SET)
   {
   }
 
   /* config pll clock resource */
-  crm_pll_config(CRM_PLL_SOURCE_HEXT, CRM_PLL_MULT_12);
+  crm_pll_config(CRM_PLL_SOURCE_HICK, CRM_PLL_MULT_24);
 
   /* enable pll */
   crm_clock_source_enable(CRM_CLOCK_SOURCE_PLL, TRUE);
@@ -74,10 +73,10 @@ void system_clock_config(void)
   /* config ahbclk */
   crm_ahb_div_set(CRM_AHB_DIV_1);
 
-  /* config apb2clk */
+  /* config apb2clk, the maximum frequency of APB1/APB2 clock is 96 MHz  */
   crm_apb2_div_set(CRM_APB2_DIV_1);
 
-  /* config apb1clk */
+  /* config apb1clk, the maximum frequency of APB1/APB2 clock is 96 MHz  */
   crm_apb1_div_set(CRM_APB1_DIV_1);
 
   /* select pll as system clock source */

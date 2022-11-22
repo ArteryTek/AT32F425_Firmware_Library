@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f425_adc.c
-  * @version  v2.0.5
-  * @date     2022-08-16
   * @brief    contains all the functions for the adc firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer
