@@ -44,12 +44,11 @@
   */
 void system_clock_config(void)
 {
-  /* config flash psr register */
-  flash_psr_set(FLASH_WAIT_CYCLE_2);
-
- 
   /* reset crm */
   crm_reset();
+
+  /* config flash psr register */
+  flash_psr_set(FLASH_WAIT_CYCLE_2);
 
   /* enable hick */
   crm_clock_source_enable(CRM_CLOCK_SOURCE_HICK, TRUE);
