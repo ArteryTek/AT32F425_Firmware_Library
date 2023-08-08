@@ -93,16 +93,24 @@ static __IO uint32_t fac_ms;
 PUTCHAR_PROTOTYPE
 {
   while(usart_flag_get(PRINT_UART, USART_TDBE_FLAG) == RESET);
-  usart_data_transmit(PRINT_UART, ch);
+  usart_data_transmit(PRINT_UART, (uint16_t)ch);
+  while(usart_flag_get(PRINT_UART, USART_TDC_FLAG) == RESET);
   return ch;
 }
 
+#if (defined (__GNUC__) && !defined (__clang__)) || (defined (__ICCARM__))
 #if defined (__GNUC__) && !defined (__clang__)
 int _write(int fd, char *pbuffer, int size)
+#elif defined ( __ICCARM__ )
+#pragma module_name = "?__write"
+int __write(int fd, char *pbuffer, int size)
+#endif
 {
   for(int i = 0; i < size; i ++)
   {
-    __io_putchar(*pbuffer++);
+    while(usart_flag_get(PRINT_UART, USART_TDBE_FLAG) == RESET);
+    usart_data_transmit(PRINT_UART, (uint16_t)(*pbuffer++));
+    while(usart_flag_get(PRINT_UART, USART_TDC_FLAG) == RESET);
   }
 
   return size;
@@ -117,6 +125,10 @@ int _write(int fd, char *pbuffer, int size)
 void uart_print_init(uint32_t baudrate)
 {
   gpio_init_type gpio_init_struct;
+
+#if defined (__GNUC__) && !defined (__clang__)
+  setvbuf(stdout, NULL, _IONBF, 0);
+#endif
 
   /* enable the uart and gpio clock */
   crm_periph_clock_enable(PRINT_UART_CRM_CLK, TRUE);
@@ -170,10 +182,6 @@ void at32_board_init()
 void at32_button_init(void)
 {
   gpio_init_type gpio_init_struct;
-
-#if defined (__GNUC__) && !defined (__clang__)
-  setvbuf(stdout, NULL, _IONBF, 0);
-#endif
 
   /* enable the button clock */
   crm_periph_clock_enable(USER_BUTTON_CRM_CLK, TRUE);

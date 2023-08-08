@@ -15,4 +15,4 @@
 
   pin used:
     1. scl --- pb10
-    2. sda --- pb11
+    2. sda --- pb11

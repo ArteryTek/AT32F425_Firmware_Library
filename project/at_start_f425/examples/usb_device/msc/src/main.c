@@ -112,7 +112,7 @@ void usb_clock48m_select(usb_clk48_s clk_s)
   }
   else
   {
-  	/* usb divider reset */
+    /* usb divider reset */
     crm_usb_div_reset();
 
     switch(system_core_clock)

@@ -32,16 +32,16 @@ extern "C" {
 
 #include "hid_iap_class.h"
 
-/** @addtogroup AT32F425_periph_examples
+/** @addtogroup UTILITIES_examples
   * @{
   */
 
-/** @addtogroup 425_USB_device_hid_app_led3
+/** @addtogroup USB_iap_app_led4_toggle
   * @{
   */
 
 
-#define FLASH_APP_ADDRESS                0x08005000
+#define FLASH_APP_ADDRESS                0x08006000
 
 void iap_init(void);
 iap_result_type iap_get_upgrade_flag(void);

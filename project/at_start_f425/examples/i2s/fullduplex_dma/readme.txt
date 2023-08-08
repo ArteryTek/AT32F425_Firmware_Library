@@ -21,4 +21,4 @@
   - pa6(mck) <--->  NC
   - pa7(sd)  <--->  pb14(ext_sd)
   
-  for more detailed information. please refer to the application note document AN0102.
+  for more detailed information. please refer to the application note document AN0102.

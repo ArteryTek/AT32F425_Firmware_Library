@@ -206,7 +206,7 @@ void usb_low_power_wakeup_config(void)
   */
 void OTG_IRQ_HANDLER(void)
 {
-	if(exint_flag_get(OTG_WKUP_EXINT_LINE))
+  if(exint_flag_get(OTG_WKUP_EXINT_LINE))
   {
     exint_flag_clear(OTG_WKUP_EXINT_LINE);
   }
