@@ -14,10 +14,8 @@
         <TargetCommonOption>
           <Device>-AT32F425R8T7</Device>
           <Vendor>ArteryTek</Vendor>
-          <Cpu>IRAM(0x20000000-0x20004FFF) IROM(0x08000000-0x0800FFFF) CLOCK(8000000) CPUTYPE("Cortex-M4") </Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"Startup\ArteryTek\AT32F425\startup_at32f425.s" ("AT32F425 Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN1 -FF0AT32F425_64 -FS08000000 -FL10000)</FlashDriverDll>
           <DeviceId>0</DeviceId>
           <RegisterFile>at32f425.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
