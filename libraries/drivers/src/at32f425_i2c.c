@@ -729,7 +729,7 @@ flag_status i2c_flag_get(i2c_type *i2c_x, uint32_t flag)
 flag_status i2c_interrupt_flag_get(i2c_type *i2c_x, uint32_t flag)
 {
   __IO uint32_t iten = 0;
-  
+
   switch(flag)
   {
     case I2C_TDIS_FLAG:
@@ -750,7 +750,7 @@ flag_status i2c_interrupt_flag_get(i2c_type *i2c_x, uint32_t flag)
     case I2C_TDC_FLAG:
     case I2C_TCRLD_FLAG:
       iten = i2c_x->ctrl1_bit.tdcien;
-      break;      
+      break;
     case I2C_BUSERR_FLAG:
     case I2C_ARLOST_FLAG:
     case I2C_OUF_FLAG:
@@ -763,7 +763,7 @@ flag_status i2c_interrupt_flag_get(i2c_type *i2c_x, uint32_t flag)
     default:
       break;
   }
-  
+
   if(((i2c_x->sts & flag) != RESET) && (iten))
   {
     return SET;
