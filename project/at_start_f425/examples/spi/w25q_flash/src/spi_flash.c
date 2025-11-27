@@ -3,7 +3,8 @@
   * @file     spi_flash.c
   * @brief    spi_flash source code
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -348,6 +349,9 @@ void spi_bytes_write(uint8_t *pbuffer, uint32_t length)
 
   while(dma_flag_get(DMA1_FDT2_FLAG) == RESET);
   dma_flag_clear(DMA1_FDT2_FLAG);
+  
+  /* wait spi idle when communication end */
+  while(spi_i2s_flag_get(SPI2, SPI_I2S_BF_FLAG) != RESET);
 
   dma_channel_enable(DMA1_CHANNEL2, FALSE);
   dma_channel_enable(DMA1_CHANNEL3, FALSE);
@@ -363,6 +367,9 @@ void spi_bytes_write(uint8_t *pbuffer, uint32_t length)
     dummy_data = spi_i2s_data_receive(SPI2);
     pbuffer++;
   }
+  
+  /* wait spi idle when communication end */
+  while(spi_i2s_flag_get(SPI2, SPI_I2S_BF_FLAG) != RESET);
 #endif
 }
 
@@ -416,6 +423,9 @@ void spi_bytes_read(uint8_t *pbuffer, uint32_t length)
 
   while(dma_flag_get(DMA1_FDT2_FLAG) == RESET);
   dma_flag_clear(DMA1_FDT2_FLAG);
+  
+  /* wait spi idle when communication end */
+  while(spi_i2s_flag_get(SPI2, SPI_I2S_BF_FLAG) != RESET);
 
   dma_channel_enable(DMA1_CHANNEL2, FALSE);
   dma_channel_enable(DMA1_CHANNEL3, FALSE);
@@ -431,6 +441,9 @@ void spi_bytes_read(uint8_t *pbuffer, uint32_t length)
     *pbuffer = spi_i2s_data_receive(SPI2);
     pbuffer++;
   }
+  
+  /* wait spi idle when communication end */
+  while(spi_i2s_flag_get(SPI2, SPI_I2S_BF_FLAG) != RESET);
 #endif
 }
 
@@ -503,7 +516,10 @@ uint8_t spi_byte_write(uint8_t data)
   spi_i2s_data_transmit(SPI2, data);
   while(spi_i2s_flag_get(SPI2, SPI_I2S_RDBF_FLAG) == RESET);
   brxbuff = spi_i2s_data_receive(SPI2);
+  
+  /* wait spi idle when communication end */
   while(spi_i2s_flag_get(SPI2, SPI_I2S_BF_FLAG) != RESET);
+  
   return brxbuff;
 }
 

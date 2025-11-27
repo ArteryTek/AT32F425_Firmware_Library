@@ -3,7 +3,8 @@
   * @file     at32f425_int.h
   * @brief    header file of main interrupt service routines.
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -25,8 +26,6 @@
 /* define to prevent recursive inclusion -------------------------------------*/
 #ifndef __AT32F425_INT_H
 #define __AT32F425_INT_H
-
-#define BUFFER_SIZE   32
 
 #ifdef __cplusplus
 extern "C" {

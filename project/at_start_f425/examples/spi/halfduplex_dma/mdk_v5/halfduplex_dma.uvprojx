@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>software_trigger_repeat</TargetName>
+      <TargetName>halfduplex_dma</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
@@ -48,7 +48,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\objects\</OutputDirectory>
-          <OutputName>software_trigger_repeat</OutputName>
+          <OutputName>halfduplex_dma</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -428,19 +428,19 @@
               <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_crm.c</FilePath>
             </File>
             <File>
+              <FileName>at32f425_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_usart.c</FilePath>
+            </File>
+            <File>
               <FileName>at32f425_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_dma.c</FilePath>
             </File>
             <File>
-              <FileName>at32f425_adc.c</FileName>
+              <FileName>at32f425_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>at32f425_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_usart.c</FilePath>
+              <FilePath>..\..\..\..\..\..\libraries\drivers\src\at32f425_spi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -482,7 +482,7 @@
   <LayerInfo>
     <Layers>
       <Layer>
-        <LayName>&lt;Project Info&gt;</LayName>
+        <LayName>fullduplex_dma</LayName>
         <LayTarg>0</LayTarg>
         <LayPrjMark>1</LayPrjMark>
       </Layer>

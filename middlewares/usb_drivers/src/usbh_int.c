@@ -3,7 +3,8 @@
   * @file     usbh_int.c
   * @brief    usb host interrupt request
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -229,13 +230,21 @@ void usbh_hch_in_handler(usbh_core_type *uhost, uint8_t chn)
       {
         uhost->urb_state[chn] = URB_NOTREADY;
       }
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
+      if(usb_chh->hcchar_bit.eptype == EPT_CONTROL_TYPE || 
+        usb_chh->hcchar_bit.eptype == EPT_BULK_TYPE)
+      {
+        usb_chh->hcchar_bit.chdis = FALSE;
+        usb_chh->hcchar_bit.chena = TRUE;
+      }
     }
     else if(uhost->hch[chn].state == HCH_NAK)
     {
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
+      if(usb_chh->hcchar_bit.eptype == EPT_CONTROL_TYPE || 
+        usb_chh->hcchar_bit.eptype == EPT_BULK_TYPE)
+      {
+        usb_chh->hcchar_bit.chdis = FALSE;
+        usb_chh->hcchar_bit.chena = TRUE;
+      }
       uhost->urb_state[chn] = URB_NOTREADY;
     }
     usb_chh->hcint = USB_OTG_HC_CHHLTD_FLAG;

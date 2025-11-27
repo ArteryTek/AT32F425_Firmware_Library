@@ -3,7 +3,8 @@
   * @file     at32f425_adc.h
   * @brief    at32f425 adc header file
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -304,9 +305,7 @@ typedef struct
       __IO uint32_t pcswtrg              : 1; /* [21] */
       __IO uint32_t ocswtrg              : 1; /* [22] */
       __IO uint32_t itsrven              : 1; /* [23] */
-      __IO uint32_t pctesel_h            : 1; /* [24] */
-      __IO uint32_t octesel_h            : 1; /* [25] */
-      __IO uint32_t reserved4            : 6; /* [31:26] */
+      __IO uint32_t reserved4            : 8; /* [31:24] */
     } ctrl2_bit;
   };
 

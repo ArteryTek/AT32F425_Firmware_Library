@@ -3,7 +3,8 @@
   * @file     at32f425.h
   * @brief    at32f425 header file
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -137,7 +138,7 @@ extern "C" {
   */
 #define __AT32F425_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F425_LIBRARY_VERSION_MIDDLE   (0x01) /*!< [23:16] middle version */
-#define __AT32F425_LIBRARY_VERSION_MINOR    (0x03) /*!< [15:8]  minor version */
+#define __AT32F425_LIBRARY_VERSION_MINOR    (0x04) /*!< [15:8]  minor version */
 #define __AT32F425_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F425_LIBRARY_VERSION          ((__AT32F425_LIBRARY_VERSION_MAJOR << 24)  | \
                                              (__AT32F425_LIBRARY_VERSION_MIDDLE << 16) | \
